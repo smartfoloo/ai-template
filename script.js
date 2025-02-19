@@ -125,3 +125,94 @@ sendBtn.addEventListener('click', () => {
   sendTextMessage();
   removeInitialMessage();
 });
+
+async function loadDropdownOptions() {
+  const response = await fetch('/settings.json');
+  return await response.json();
+}
+
+function createDropdownOptions(menu, options) {
+  options.forEach(option => {
+    const li = document.createElement('li');
+    li.setAttribute('value', option.value);
+    li.style.cursor = 'pointer';
+
+    const optionText = document.createElement('p');
+    optionText.className = 'dropdown-option-text';
+    optionText.textContent = option.name;
+
+    li.appendChild(optionText);
+
+    if (option.desc) {
+      const desc = document.createElement('span');
+      desc.className = 'dropdown-option-desc';
+      desc.textContent = option.desc;
+      li.appendChild(desc);
+    }
+
+    menu.appendChild(li);
+  });
+}
+
+function initializeDropdown(dropdownId, localStorageKey, defaultValue, callback, options) {
+  const dropdown = document.getElementById(dropdownId);
+  const button = dropdown.querySelector('.dropdown-button');
+  const menu = dropdown.querySelector('.dropdown-menu');
+  const selected = dropdown.querySelector('.dropdown-selected');
+
+  const savedValue = localStorage.getItem(localStorageKey) || defaultValue;
+  const selectedOption = options.find(option => option.value === savedValue) || {};
+  selected.textContent = selectedOption.name || savedValue;
+
+  button.addEventListener('click', () => {
+    menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+  });
+
+  menu.addEventListener('click', (event) => {
+
+    if (event.target.tagName === 'LI' || event.target.parentElement.tagName === 'LI') {
+      const selectedValue = event.target.closest('li').getAttribute('value');
+      const selectedName = event.target.closest('li').querySelector('.dropdown-option-text').textContent;
+      selected.textContent = selectedName;
+      localStorage.setItem(localStorageKey, selectedValue);
+      callback(selectedValue);
+      menu.style.display = 'none';
+    }
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!dropdown.contains(event.target)) {
+      menu.style.display = 'none';
+    }
+  });
+}
+
+async function initializeAllDropdowns() {
+  const options = await loadDropdownOptions();
+  for (const dropdownId in options) {
+    const dropdownOptions = options[dropdownId];
+    let callback;
+
+    if (dropdownId === 'ai-model') {
+      callback = setModel;
+    } else if (dropdownId === 'proxy-backend') {
+      callback = setProxy;
+    } else if (dropdownId === 'search-engine') {
+      callback = saveSearchEngine;
+    } else if (dropdownId === 'tab-cloak') {
+      callback = saveTabCloak;
+    }
+
+    initializeDropdown(dropdownId, dropdownId, dropdownOptions[0].value, callback, dropdownOptions);
+
+    const menu = document.getElementById(dropdownId).querySelector('.dropdown-menu');
+    createDropdownOptions(menu, dropdownOptions);
+  }
+}
+
+initializeAllDropdowns();
+
+function setModel(model) {
+  localStorage.setItem('ai-model', model);
+  console.log(`AI model set to: ${model}`);
+}
