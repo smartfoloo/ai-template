@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="ai-container">
+    <div class="ai-menu">
+      <div class="dropdown" id="ai-model">
+        <button class="dropdown-button">
+          <span class="dropdown-selected">Mixtral-8x7b</span>
+          <i data-lucide="chevron-down"></i>
+        </button>
+        <ul class="dropdown-menu"></ul>
+      </div>
+    </div>
+    <div id="chat-display"></div>
+    <div class="bottom">
+      <div class="input-container">
+        <input type="text" id="input-box" placeholder="Message AI...">
+        <button id="submit-btn">
+          <i class="bi bi-arrow-up"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="./script.js"></script>
+</html>
