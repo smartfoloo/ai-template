@@ -1,23 +1,7 @@
 # AI Template
 An AI template for school built with Groq.
 
-## Deployment
-
-You can deploy this app through any hosting service of your choice, however you need to obtain an API key from [Groq](https://console.groq.com/login) first.
-
-Once you have one, fork this repository, and replace line 413 of the `index.html` file with your Groq API key.
-
-```javascript
-const token = 'YOUR_GROQ_API_KEY';
-```
-
-With your actual API key (this is not a real one):
-
-```javascript
-const token = 'gsk_3pknNPO6gSwTS7uwoaf87WGdyb3FYsg6F0KiHaBTwtK3W29CS1f73';
-```
-
-Once you have that, you can use any hosting service to deploy your app!
+**Make sure to ⭐️ the repository if you find this useful.**
 
 ## Using Data URLs
 
@@ -79,3 +63,22 @@ Then copy the URL and replace `GITHUB_RAW_URL` in this code with your URL:
 Once you are done, copy all the code and navigate to a [Data URL Converter](https://html-data-url-converter.vercel.app/) and paste the code
 
 Now copy the Data URL, and you can use this URL to use the AI app!
+
+## Deployment
+
+You can deploy this app through any hosting service of your choice, however you need to obtain an API key from [Groq](https://console.groq.com/login) first.
+
+Once you have one, fork this repository, and replace line 413 of the `index.html` file with your Groq API key.
+
+```javascript
+const token = 'YOUR_GROQ_API_KEY';
+```
+
+With your actual API key (this is not a real one):
+
+```javascript
+const token = 'gsk_3pknNPO6gSwTS7uwoaf87WGdyb3FYsg6F0KiHaBTwtK3W29CS1f73';
+```
+
+Once you have that, you can use any hosting service to deploy your app!
+
